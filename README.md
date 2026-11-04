@@ -23,3 +23,9 @@ This is a static preview. Open `index.html` through any local server, for exampl
 - Quote forms (the #quote section, the modal, and the footer) validate on the client only. **No backend yet:** see the `<!-- TODO: connect form endpoint (FormSubmit/CRM) after client approval -->` comments.
 - The trust row ("Response within 15 minutes", "24/7 charter desk") is SAMPLE copy until the client confirms it.
 - Backup of the pre-v3 site: ../v2-backup-pre-v3/
+
+## v3.1 daytime pass
+- Opening runway now uses `img/tarmac-day.webp` (desktop 1280x720) and `img/tarmac-day-m.webp` (mobile 720x1280); window anchors live in `SHOT` in `js/main.js`.
+- Perks image swapped to `img/executive-day.webp`. Old `tarmac.webp` / `executive.webp` kept, unused.
+- All three are AI-generated placeholders (no logos/tail numbers) — swap for real fleet photos when available (re-measure the `SHOT` window x/y/height).
+- Porthole stage is now a light sunlit cabin (`--wall` cream, navy headline). Nav flips light→navy partway through the zoom.

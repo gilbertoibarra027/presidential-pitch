@@ -10,7 +10,8 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 40 40%27%3E%3Ccircle cx=%2720%27 cy=%2720%27 r=%2719%27 fill=%27%230e1b33%27/%3E%3Cpath d=%27M8 22.5 L32 15.5 L27 20.5 L32 25.5 Z%27 fill=%27%23c7a463%27/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/cormorant.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/manrope.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="img/tarmac.webp" as="image" fetchpriority="high">
+<link rel="preload" href="img/tarmac-day.webp" as="image" fetchpriority="high" media="(min-width: 769px)">
+<link rel="preload" href="img/tarmac-day-m.webp" as="image" fetchpriority="high" media="(max-width: 768px)">
 <link rel="preload" href="img/sky.webp" as="image" media="(min-width: 769px)">
 <link rel="preload" href="img/sky-sm.webp" as="image" media="(max-width: 768px)">
 <link rel="stylesheet" href="css/style.css">
@@ -69,7 +70,7 @@
     <div class="glow" aria-hidden="true"></div>
     <!-- 0 · RUNWAY INTRO: jet on the ramp, camera pushes into a cabin window, hands off to the porthole -->
     <div class="runway" aria-hidden="true">
-      <div class="runway__photo"><img src="img/tarmac.webp" alt="" width="864" height="1152" fetchpriority="high" decoding="async"></div>
+      <div class="runway__photo"><picture><source media="(max-width: 768px)" srcset="img/tarmac-day-m.webp" width="720" height="1280"><img src="img/tarmac-day.webp" alt="" width="1280" height="720" fetchpriority="high" decoding="async"></picture></div>
       <div class="runway__shade"></div>
       <div class="runway__wall"></div>
     </div>
@@ -267,7 +268,7 @@
       <ol class="perks__list">
         <li class="perk is-active" data-i="0">
           <button class="perk__head" type="button"><span class="perk__n">01</span><span class="perk__t">Depart on your time</span><i class="perk__x"></i></button>
-          <div class="perk__body"><p>Your aircraft waits for you, not the other way around.</p><img class="perk__img-m" src="img/tarmac.webp" alt="" loading="lazy"></div>
+          <div class="perk__body"><p>Your aircraft waits for you, not the other way around.</p><img class="perk__img-m" src="img/tarmac-day-m.webp" alt="" loading="lazy"></div>
         </li>
         <li class="perk" data-i="1">
           <button class="perk__head" type="button"><span class="perk__n">02</span><span class="perk__t">Private FXE terminal</span><i class="perk__x"></i></button>
@@ -275,7 +276,7 @@
         </li>
         <li class="perk" data-i="2">
           <button class="perk__head" type="button"><span class="perk__n">03</span><span class="perk__t">Tailored cabin experience</span><i class="perk__x"></i></button>
-          <div class="perk__body"><p>Catering, seating, and service set to your preferences.</p><img class="perk__img-m" src="img/executive.webp" alt="" loading="lazy"></div>
+          <div class="perk__body"><p>Catering, seating, and service set to your preferences.</p><img class="perk__img-m" src="img/executive-day.webp" alt="" loading="lazy"></div>
         </li>
         <li class="perk" data-i="3">
           <button class="perk__head" type="button"><span class="perk__n">04</span><span class="perk__t">Safety without compromise</span><i class="perk__x"></i></button>
@@ -285,9 +286,9 @@
     </div>
     <div class="perks__right" aria-hidden="true">
       <div class="frame">
-        <img class="frame__img is-on" src="img/tarmac.webp" alt="" loading="lazy">
+        <img class="frame__img is-on" src="img/tarmac-day-m.webp" alt="" loading="lazy">
         <img class="frame__img" src="img/jet-climb.webp" alt="" loading="lazy">
-        <img class="frame__img" src="img/executive.webp" alt="" loading="lazy">
+        <img class="frame__img" src="img/executive-day.webp" alt="" loading="lazy">
         <img class="frame__img" src="img/cabin.webp" alt="" loading="lazy">
         <span class="frame__count"><b>01</b> / 04</span>
       </div>
