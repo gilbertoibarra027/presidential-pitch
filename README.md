@@ -1,31 +1,28 @@
-# Presidential Aviation: pitch concept v2
+# Presidential Aviation · v4 (lean pitch build)
 
-This is a static preview. Open `index.html` through any local server, for example `python3 -m http.server`. It works offline: the fonts, GSAP, ScrollTrigger and Lenis are all included in the folder. Nothing here has been deployed.
+Static, no build step. Open `index.html` via any static server (`python3 -m http.server`).
+Not deployed. v2 is untouched.
 
-## Facts used and where they come from
-- Address, phone numbers, email, services list and the empty-legs description come from presidential-aviation.com (home, fleet and empty-leg pages). The address is 1725 NW 51 Place, Fort Lauderdale, FL 33309, at Fort Lauderdale Executive Airport (FXE). The numbers are charter +1 954.481.0344, office +1 954.772.8622, toll-free 1.888.772.8622, and the email is sales@presidential-aviation.com. Note that flypresidential.com is only a GoDaddy placeholder.
-- Gulfstream G650ER specs (up to 19 passengers, 7,500 nm, Mach 0.85 long-range cruise, Mach 0.925 maximum operating speed, 46 ft 10 in cabin, 51,000 ft, sleeps 10, 16 oval windows, 100% fresh air, Rolls-Royce BR725) come from Gulfstream's published G650ER specifications.
-- We feature the G650ER because the FAA registry, through aeropattern and flightladder, lists N650MV, a G650ER, on their certificate. The page labels it "Featured aircraft", not "our fleet".
-- The FXE coordinates are 26.20°N, 80.17°W.
-- The marketing copy is Rex's.
+## Structure (~5.3 screens desktop / ~7 screens mobile)
+1. Header (logo, nav, phone, Schedule Your Flight) + 1.7s airplane-window intro (CSS, plays once on load)
+2. Hero: Ken Burns CSS loop on tarmac-day(-m).webp + booking bar (step 1)
+3. Trust strip (text badges, UNVERIFIED)
+4. Fleet: G650ER / N650MV, signature "Fly Private. Arrive Ready." jet reveal (plays once in view)
+5. Why Us: stats (SAMPLE) + 4 perks
+6. Global: light canvas globe, FXE to 6 example cities (land.js lazy-loaded)
+7. Empty Legs band
+8. Closing CTA + contact form + footer
+Step 2 = modal (desktop) / bottom sheet (mobile). Mobile sticky Call / Schedule bar.
 
-## Placeholders still showing on the page
-- `[STAT]` × 3 in the statement panel: years in operation, aircraft in fleet, flights flown
-- `[X]+ flights` on the globe card
+## Changes from v2
+No GSAP, ScrollTrigger, or Lenis, no custom cursor, no pinned scroll. CSS animations + IntersectionObserver only.
+JS ~12 KB, CSS ~24 KB. Below-fold images lazy-loaded, hero image + fonts preloaded.
 
-## Claims to confirm with the client
-- "Private FXE terminal" (perk 02, from Rex's copy) needs confirming.
-- The destination cities are used as examples, not as a list of routes.
-
-## v3 (lead capture + runway intro)
-- Opening: jet on the runway (img/tarmac.webp). As you scroll, the camera pushes into a lit cabin window, which becomes the porthole hero. This all runs inside the existing sticky `.flight` stage, scrubbed by the same GSAP timeline. Reduced motion gets a static runway screen instead.
-- Always-visible primary CTA, "Schedule Your Flight": in the header, the intro route bar, and the mobile sticky bar. All of them open the quote modal.
-- Quote forms (the #quote section, the modal, and the footer) validate on the client only. **No backend yet:** see the `<!-- TODO: connect form endpoint (FormSubmit/CRM) after client approval -->` comments.
-- The trust row ("Response within 15 minutes", "24/7 charter desk") is SAMPLE copy until the client confirms it.
-- Backup of the pre-v3 site: ../v2-backup-pre-v3/
-
-## v3.1 daytime pass
-- Opening runway now uses `img/tarmac-day.webp` (desktop 1280x720) and `img/tarmac-day-m.webp` (mobile 720x1280); window anchors live in `SHOT` in `js/main.js`.
-- Perks image swapped to `img/executive-day.webp`. Old `tarmac.webp` / `executive.webp` kept, unused.
-- All three are AI-generated placeholders (no logos/tail numbers) — swap for real fleet photos when available (re-measure the `SHOT` window x/y/height).
-- Porthole stage is now a light sunlit cabin (`--wall` cream, navy headline). Nav flips light→navy partway through the zoom.
+## Check with Presidential before publishing
+- Certifications in the trust strip (ARGUS Platinum, Wyvern Wingman, IS-BAO Stage 2)
+- Lead phone: 954.481.0344 used everywhere; live site also lists 954.772.8622
+- Stats (25+ yrs, 12 aircraft, 15,000+ flights) are samples
+- "Private FXE terminal" perk
+- Cities are examples; imagery is AI placeholder
+- Forms have no backend: see `TODO: connect form endpoint` comments
+- `noindex` meta is on purpose for the preview (it's why Lighthouse SEO shows 63)
