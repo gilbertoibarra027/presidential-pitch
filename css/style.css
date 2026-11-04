@@ -504,3 +504,29 @@ html.qm-lock,html.qm-lock body{overflow:hidden}
 .runway__copy{bottom:0;pointer-events:none}
 .runway__copy > *{pointer-events:auto}
 .qf [hidden],.qf[hidden],.qf__done[hidden]{display:none!important}
+
+/* =====================================================
+   v3.1 · daytime / sunny pass
+   ===================================================== */
+:root{--wall:#ece7df;--gold-deep:#9a7638}
+.runway__photo picture{display:block;width:100%;height:100%}
+.runway__photo img{object-position:50% 60%}
+@media (max-width:768px){.runway__photo img{object-position:60% 50%}}
+/* keep white copy crisp over a bright sky: soft navy wash top-left + bottom for the route bar */
+.runway__shade{background:
+  linear-gradient(100deg,rgba(9,22,48,.55) 0%,rgba(9,22,48,.22) 34%,rgba(9,22,48,0) 58%),
+  linear-gradient(180deg,rgba(9,22,48,.35) 0%,rgba(9,22,48,0) 22%,rgba(9,22,48,0) 70%,rgba(9,22,48,.35) 100%)}
+@media (max-width:768px){.runway__shade{background:linear-gradient(180deg,rgba(9,22,48,.55) 0%,rgba(9,22,48,.3) 38%,rgba(9,22,48,0) 55%,rgba(9,22,48,0) 80%,rgba(9,22,48,.3) 100%)}}
+.runway__title{text-shadow:0 2px 24px rgba(5,15,35,.35)}
+/* light, sunlit cabin around the porthole */
+.glow{background:radial-gradient(ellipse 46% 62% at 50% 50%,rgba(255,250,238,.85) 0%,rgba(255,246,228,.35) 45%,rgba(255,255,255,0) 72%),radial-gradient(ellipse 120% 90% at 50% 50%,rgba(14,27,51,0) 60%,rgba(14,27,51,.12) 100%)}
+.porthole--bezel{filter:drop-shadow(0 26px 36px rgba(14,27,51,.22))}
+.sky__tint{background:linear-gradient(180deg,#bcd8f0 0%,#e4eef7 60%,#f6f1e6 100%);opacity:.5}
+.rm .sky__tint{opacity:.2}
+.hl{color:var(--navy)}
+.hl--r .hl__big em{color:var(--gold-deep)}
+
+.hero-foot{color:rgba(14,27,51,.62)}
+.hint i{background:linear-gradient(rgba(14,27,51,0),var(--navy))}
+.hl__small{color:rgba(14,27,51,.8)}
+.rm-runway .rbar{position:absolute}
