@@ -375,3 +375,8 @@ body.lock{overflow:hidden}
 .rm .fleet__jet,.rm .fleet__spec{opacity:1;transform:none}
 .rm .jet--photo{clip-path:none}
 .rm .scan{display:none}
+
+/* client logo */
+.nav__img{height:52px;width:auto;display:block;filter:drop-shadow(0 1px 3px rgba(0,0,0,.35))}
+@media(max-width:600px){.nav__img{height:42px}}
+.foot__brand img{height:89px;width:auto;display:block}
