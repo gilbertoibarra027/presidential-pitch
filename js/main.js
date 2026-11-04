@@ -319,3 +319,12 @@
     var rz;window.addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){if(!G.running)draw(performance.now());},150);});
   }
 })();
+
+/* Count-up for #by-the-numbers (respects prefers-reduced-motion) */
+(function(){var els=document.querySelectorAll('.nums .cnt');if(!els.length||!('IntersectionObserver' in window))return;
+if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+function f(v,d){return d?v.toFixed(d):Math.round(v).toLocaleString('en-US')}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;io.unobserve(e.target);var el=e.target,t=parseFloat(el.dataset.to),d=(el.dataset.to.split('.')[1]||'').length,s=null;
+function step(ts){if(!s)s=ts;var p=Math.min((ts-s)/1600,1),k=1-Math.pow(1-p,3);el.textContent=f(t*k,d);if(p<1)requestAnimationFrame(step);else el.textContent=f(t,d)}
+el.textContent=f(0,d);requestAnimationFrame(step)})},{threshold:.4});
+els.forEach(function(el){io.observe(el)})})();
