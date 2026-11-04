@@ -34,7 +34,7 @@
       <button class="dd__btn" type="button" aria-expanded="false" aria-controls="dd-services">Services<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
       <div class="dd__menu" id="dd-services"><div class="dd__panel"><a href="charter.html"><b>Private Jet Charter</b><span>Worldwide, on demand, from FXE</span></a><a href="empty-legs.html"><b>Empty Legs</b><span>One-way repositioning flights</span></a><a href="government.html"><b>Government &amp; GSA</b><span>GSA Schedule air charter</span></a><a href="management.html"><b>Aircraft Management</b><span>A full flight department for owners</span></a><a href="sales.html"><b>Sales &amp; Acquisitions</b><span>Buy or sell with expert guidance</span></a><a href="maintenance.html"><b>Maintenance</b><span>FAA Part 145 repair station</span></a></div></div>
     </div>
-    <a href="#fleet">Fleet</a><a href="#global">Destinations</a><a href="about.html">About</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a>
+    <a href="fleet.html">Fleet</a><a href="#global">Destinations</a><a href="about.html">About</a><a href="careers.html">Careers</a><a href="contact.html">Contact</a>
   </nav>
   <div class="nav__cta">
     <a class="nav__tel" href="tel:+19544810344" aria-label="Call 954.481.0344"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" fill="currentColor"/></svg><span>954.481.0344</span></a>
@@ -47,7 +47,7 @@
     <p class="mnav__h">Services</p>
     <ul><li><a href="charter.html">Private Jet Charter</a></li><li><a href="empty-legs.html">Empty Legs</a></li><li><a href="government.html">Government &amp; GSA</a></li><li><a href="management.html">Aircraft Management</a></li><li><a href="sales.html">Sales &amp; Acquisitions</a></li><li><a href="maintenance.html">Maintenance</a></li></ul>
     <p class="mnav__h">Company</p>
-    <ul><li><a href="#fleet">Fleet</a></li><li><a href="#global">Destinations</a></li><li><a href="about.html">About</a></li><li><a href="careers.html">Careers</a></li><li><a href="contact.html">Contact</a></li></ul>
+    <ul><li><a href="fleet.html">Fleet</a></li><li><a href="#global">Destinations</a></li><li><a href="about.html">About</a></li><li><a href="careers.html">Careers</a></li><li><a href="contact.html">Contact</a></li></ul>
     <a class="btn btn--ghost btn--block" href="tel:+19544810344"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z" fill="currentColor"/></svg>Call 954.481.0344</a>
   </nav>
 </div>
@@ -149,6 +149,67 @@
   </div>
 </section>
 
+<!-- 3b · OUR FLEET (data: js/fleet-data.js, scraped from presidential-aviation.com managed fleet) -->
+<section class="sec" id="our-fleet" aria-labelledby="ofleet-title">
+  <div class="sec__in">
+    <div class="ofleet__top rv">
+      <div><p class="eyebrow">Our fleet</p><h2 id="ofleet-title">Choose your <em>aircraft.</em></h2></div>
+      <div class="ofleet__ctl">
+        <button class="ofleet__arr" type="button" data-scroll="prev" aria-controls="ofleet-track" aria-label="Previous aircraft"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13 8H3M7 4 3 8l4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+        <button class="ofleet__arr" type="button" data-scroll="next" aria-controls="ofleet-track" aria-label="Next aircraft"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+        <a class="btn btn--line" href="fleet.html">View full fleet</a>
+      </div>
+    </div>
+    <ul class="ofleet__track" id="ofleet-track" aria-label="Featured aircraft">
+<li class="ac"><button class="ac__btn" type="button" data-ac="gulfstream-g650-g650er" aria-haspopup="dialog">
+  <span class="ac__img"><img src="img/fleet/gulfstream-g650-g650er-ext-sm.webp" srcset="img/fleet/gulfstream-g650-g650er-ext-sm.webp 640w, img/fleet/gulfstream-g650-g650er-ext.webp 1400w" sizes="(max-width: 640px) 88vw, (max-width: 1100px) 45vw, 400px" alt="Gulfstream G650/G650ER exterior" width="640" height="240" loading="lazy" decoding="async"></span>
+  <span class="ac__body"><span class="ac__cat">Ultra Long Range</span><span class="ac__name">Gulfstream G650/G650ER</span>
+  <span class="ac__stats"><span><b>14</b>Passengers</span><span><b>7,000</b>Range nm</span><span><b>685</b>Speed mph</span></span>
+  <span class="ac__more">View specifications<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></span></button></li>
+<li class="ac"><button class="ac__btn" type="button" data-ac="falcon-7x" aria-haspopup="dialog">
+  <span class="ac__img"><img src="img/fleet/falcon-7x-ext-sm.webp" srcset="img/fleet/falcon-7x-ext-sm.webp 640w, img/fleet/falcon-7x-ext.webp 1400w" sizes="(max-width: 640px) 88vw, (max-width: 1100px) 45vw, 400px" alt="Falcon 7X exterior" width="640" height="240" loading="lazy" decoding="async"></span>
+  <span class="ac__body"><span class="ac__cat">Ultra Long Range</span><span class="ac__name">Falcon 7X</span>
+  <span class="ac__stats"><span><b>14</b>Passengers</span><span><b>5,950</b>Range nm</span><span><b>370</b>Speed mph</span></span>
+  <span class="ac__more">View specifications<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></span></button></li>
+<li class="ac"><button class="ac__btn" type="button" data-ac="gulfstream-gv-2" aria-haspopup="dialog">
+  <span class="ac__img"><img src="img/fleet/gulfstream-gv-2-ext-sm.webp" srcset="img/fleet/gulfstream-gv-2-ext-sm.webp 640w, img/fleet/gulfstream-gv-2-ext.webp 1400w" sizes="(max-width: 640px) 88vw, (max-width: 1100px) 45vw, 400px" alt="Gulfstream GV exterior" width="640" height="240" loading="lazy" decoding="async"></span>
+  <span class="ac__body"><span class="ac__cat">Ultra Long Range</span><span class="ac__name">Gulfstream GV</span>
+  <span class="ac__stats"><span><b>16</b>Passengers</span><span><b>6,094</b>Range nm</span><span><b>562</b>Speed mph</span></span>
+  <span class="ac__more">View specifications<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></span></button></li>
+<li class="ac"><button class="ac__btn" type="button" data-ac="falcon-900ex-easy" aria-haspopup="dialog">
+  <span class="ac__img"><img src="img/fleet/falcon-900ex-easy-ext-sm.webp" srcset="img/fleet/falcon-900ex-easy-ext-sm.webp 640w, img/fleet/falcon-900ex-easy-ext.webp 1400w" sizes="(max-width: 640px) 88vw, (max-width: 1100px) 45vw, 400px" alt="Falcon 900EX EASy exterior" width="640" height="240" loading="lazy" decoding="async"></span>
+  <span class="ac__body"><span class="ac__cat">Large Cabin</span><span class="ac__name">Falcon 900EX EASy</span>
+  <span class="ac__stats"><span><b>14</b>Passengers</span><span><b>5,300</b>Range nm</span><span><b>575</b>Speed mph</span></span>
+  <span class="ac__more">View specifications<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></span></button></li>
+<li class="ac"><button class="ac__btn" type="button" data-ac="gulfstream-givsp-3" aria-haspopup="dialog">
+  <span class="ac__img"><img src="img/fleet/gulfstream-givsp-3-ext-sm.webp" srcset="img/fleet/gulfstream-givsp-3-ext-sm.webp 640w, img/fleet/gulfstream-givsp-3-ext.webp 1400w" sizes="(max-width: 640px) 88vw, (max-width: 1100px) 45vw, 400px" alt="Gulfstream GIV-SP exterior" width="640" height="240" loading="lazy" decoding="async"></span>
+  <span class="ac__body"><span class="ac__cat">Large Cabin</span><span class="ac__name">Gulfstream GIV-SP</span>
+  <span class="ac__stats"><span><b>14</b>Passengers</span><span><b>4,900</b>Range nm</span><span><b>548</b>Speed mph</span></span>
+  <span class="ac__more">View specifications<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></span></button></li>
+<li class="ac"><button class="ac__btn" type="button" data-ac="citation-x" aria-haspopup="dialog">
+  <span class="ac__img"><img src="img/fleet/citation-x-ext-sm.webp" srcset="img/fleet/citation-x-ext-sm.webp 640w, img/fleet/citation-x-ext.webp 1400w" sizes="(max-width: 640px) 88vw, (max-width: 1100px) 45vw, 400px" alt="Citation X exterior" width="640" height="240" loading="lazy" decoding="async"></span>
+  <span class="ac__body"><span class="ac__cat">Super-Mid Cabin</span><span class="ac__name">Citation X</span>
+  <span class="ac__stats"><span><b>8</b>Passengers</span><span><b>3,070</b>Range nm</span><span><b>605</b>Speed mph</span></span>
+  <span class="ac__more">View specifications<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></span></button></li>
+<li class="ac"><button class="ac__btn" type="button" data-ac="gulfstream-g200" aria-haspopup="dialog">
+  <span class="ac__img"><img src="img/fleet/gulfstream-g200-ext-sm.webp" srcset="img/fleet/gulfstream-g200-ext-sm.webp 640w, img/fleet/gulfstream-g200-ext.webp 1400w" sizes="(max-width: 640px) 88vw, (max-width: 1100px) 45vw, 400px" alt="Gulfstream G200 exterior" width="640" height="240" loading="lazy" decoding="async"></span>
+  <span class="ac__body"><span class="ac__cat">Super-Mid Cabin</span><span class="ac__name">Gulfstream G200</span>
+  <span class="ac__stats"><span><b>9</b>Passengers</span><span><b>2,250</b>Range nm</span><span><b>490</b>Speed mph</span></span>
+  <span class="ac__more">View specifications<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></span></button></li>
+<li class="ac"><button class="ac__btn" type="button" data-ac="hawker-800xp-850xp" aria-haspopup="dialog">
+  <span class="ac__img"><img src="img/fleet/hawker-800xp-850xp-ext-sm.webp" srcset="img/fleet/hawker-800xp-850xp-ext-sm.webp 640w, img/fleet/hawker-800xp-850xp-ext.webp 1400w" sizes="(max-width: 640px) 88vw, (max-width: 1100px) 45vw, 400px" alt="Hawker 800XP/850XP exterior" width="640" height="240" loading="lazy" decoding="async"></span>
+  <span class="ac__body"><span class="ac__cat">Mid Cabin</span><span class="ac__name">Hawker 800XP/850XP</span>
+  <span class="ac__stats"><span><b>8</b>Passengers</span><span><b>2,900</b>Range nm</span><span><b>493</b>Speed mph</span></span>
+  <span class="ac__more">View specifications<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></span></button></li>
+<li class="ac"><button class="ac__btn" type="button" data-ac="phenom-300" aria-haspopup="dialog">
+  <span class="ac__img"><img src="img/fleet/phenom-300-ext-sm.webp" srcset="img/fleet/phenom-300-ext-sm.webp 640w, img/fleet/phenom-300-ext.webp 1400w" sizes="(max-width: 640px) 88vw, (max-width: 1100px) 45vw, 400px" alt="Phenom 300 exterior" width="640" height="240" loading="lazy" decoding="async"></span>
+  <span class="ac__body"><span class="ac__cat">Light Cabin</span><span class="ac__name">Phenom 300</span>
+  <span class="ac__stats"><span><b>8</b>Passengers</span><span><b>2,268</b>Range nm</span><span><b>518</b>Speed mph</span></span>
+  <span class="ac__more">View specifications<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span></span></button></li>
+    </ul>
+  </div>
+</section>
+
 <!-- 4 · PERKS + STATS -->
 <section class="why" id="why" aria-labelledby="why-title">
   <div class="why__in">
@@ -160,7 +221,7 @@
     <!-- SAMPLE stats: confirm years, fleet size and flights flown with the client -->
     <ul class="stats rv">
       <li><b>25+</b><span>Years in operation</span></li>
-      <li><b>12</b><span>Aircraft in fleet</span></li>
+      <li><b>11</b><span>Aircraft in fleet</span></li>
       <li><b>15,000+</b><span>Flights flown</span></li>
     </ul>
     <ol class="perks">
@@ -170,6 +231,22 @@
       <li class="perk rv"><!-- AI placeholder image --><img src="img/perk-cabin.webp" alt="Cream leather club seats and a walnut table with a crystal glass in a sunlit cabin" width="900" height="600" loading="lazy" decoding="async"><div><span>03</span><h3>Tailored cabin experience</h3><p>Catering, seating, and service set to your preferences.</p></div></li>
       <li class="perk rv"><!-- AI placeholder image --><img src="img/perk-safety.webp" alt="Pilot with a tablet inspecting a jet engine during a pre-flight walkaround" width="900" height="600" loading="lazy" decoding="async"><div><span>04</span><h3>Safety without compromise</h3><p>Experienced crews and rigorous standards on every flight.</p></div></li>
     </ol>
+  </div>
+</section>
+
+<!-- 4a · BY THE NUMBERS (figures from presidential-aviation.com homepage, verified live 2026-11-04) -->
+<section class="nums" id="by-the-numbers" aria-labelledby="nums-title">
+  <div class="nums__in">
+    <div class="nums__head rv"><p class="eyebrow">By the numbers</p><h2 id="nums-title">A year in <em>the air.</em></h2></div>
+    <ul class="nums__grid"><li class="rv"><b><span class="cnt" data-to="100">100</span>%</b><span>On-demand Flying</span></li><li class="rv"><b><span class="cnt" data-to="31">31</span></b><span>Countries Visited</span><small>Last 12 months</small></li><li class="rv"><b><span class="cnt" data-to="37">37</span></b><span>Non-commercial Airports Used</span><small>Last 12 months</small></li><li class="rv"><b><span class="cnt" data-to="113">113</span></b><span>Cities Flown To</span><small>Last 12 months</small></li><li class="rv"><b><span class="cnt" data-to="1346">1,346</span></b><span>Bottles of champagne served aboard our jets</span><small>Last 12 months</small></li><li class="rv"><b><span class="cnt" data-to="5982">5,982</span></b><span>Hours Saved by our Guests Using Private Terminals</span><small>Last 12 months</small></li><li class="rv"><b><span class="cnt" data-to="11146">11,146</span></b><span>Hours Average Captain Time</span></li><li class="rv"><b><span class="cnt" data-to="1.75">1.75</span></b><span>Million Miles Flown</span><small>Last 12 months</small></li></ul>
+  </div>
+</section>
+
+<!-- 4a2 · TRAVEL PARTNERS (logos from presidential-aviation.com homepage "travel partners" row) -->
+<section class="partners" id="partners" aria-labelledby="partners-title">
+  <div class="partners__in">
+    <div class="partners__head rv"><p class="eyebrow">Travel partners &amp; affiliations</p><h2 id="partners-title">In <em>good company.</em></h2></div>
+    <ul class="partners__row"><li class="rv"><img src="img/partners/argus.webp" alt="ARGUS Platinum Rated Charter Operator" width="230" height="100" loading="lazy" decoding="async"></li><li class="rv"><img src="img/partners/nbaa.webp" alt="NBAA – National Business Aviation Association" width="230" height="100" loading="lazy" decoding="async"></li><li class="rv"><img src="img/partners/wyvern-wingman.webp" alt="Wyvern Wingman" width="144" height="144" loading="lazy" decoding="async"></li><li class="rv"><img src="img/partners/gsa.webp" alt="GSA Contract Holder" width="230" height="100" loading="lazy" decoding="async"></li><li class="rv"><img src="img/partners/nata.webp" alt="NATA – National Air Transportation Association" width="230" height="100" loading="lazy" decoding="async"></li><li class="rv"><img src="img/partners/is-bao.webp" alt="IS-BAO Registered" width="230" height="100" loading="lazy" decoding="async"></li></ul>
   </div>
 </section>
 
@@ -277,6 +354,7 @@
     </div>
     <div class="foot__col">
       <p class="foot__h">Company</p>
+      <p><a href="fleet.html">Fleet</a></p>
       <p><a href="about.html">About</a></p>
       <p><a href="about.html#safety">Safety</a></p>
       <p><a href="careers.html">Careers</a></p>
@@ -291,6 +369,25 @@
   </div>
   <div class="foot__base"><span>© 2026 Presidential Aviation</span><span>Design concept · preview only</span></div>
 </footer>
+
+
+<!-- Aircraft detail dialog (filled by js/fleet.js from window.PA_FLEET) -->
+<div class="acm" id="ac-modal" role="dialog" aria-modal="true" aria-labelledby="acm-title" hidden>
+  <div class="acm__back" data-acm-close></div>
+  <div class="acm__panel">
+    <button class="acm__x" type="button" data-acm-close aria-label="Close aircraft details"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+    <figure class="acm__img"><img alt="" width="1400" height="510" decoding="async"></figure>
+    <div class="acm__body">
+      <p class="eyebrow" data-acm="cat"></p>
+      <h2 class="acm__t" id="acm-title" data-acm="name"></h2>
+      <dl class="acm__stats" data-acm="stats"></dl>
+      <div class="acm__am"><p class="acm__h">Amenities</p><ul data-acm="am"></ul></div>
+      <figure class="acm__int"><img alt="" width="640" height="410" loading="lazy" decoding="async"><figcaption>Cabin interior</figcaption></figure>
+      <div class="acm__act"><button class="btn btn--gold" type="button" data-book>Schedule Your Flight<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button><a class="btn btn--line" href="tel:+19544810344">Call 954.481.0344</a></div>
+      <p class="fine">Specifications as published by Presidential Aviation. Actual aircraft configuration may vary; confirm with the charter desk.</p>
+    </div>
+  </div>
+</div>
 
 <!-- STEP 2 · contact details for the booking bar (modal on desktop, bottom sheet on mobile) -->
 <div class="sheet" id="book-modal" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
@@ -326,6 +423,8 @@
   <button class="mbar__go" type="button" data-book>Schedule Your Flight</button>
 </div>
 
+<script src="js/fleet-data.js" defer></script>
+<script src="js/fleet.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
