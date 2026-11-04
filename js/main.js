@@ -170,7 +170,14 @@
     html.classList.add('rm');
     var flight=$('.flight'),panel=$('.panel');
     var rw=$('.runway'),rc=$('.runway__copy');
-    if(flight&&rw&&rc){var sec=document.createElement('section');sec.className='rm-runway';sec.setAttribute('aria-label','Private jet charter from Fort Lauderdale');sec.appendChild(rw);sec.appendChild(rc);flight.before(sec);}
+    var sec=null;
+    if(flight&&rw&&rc){sec=document.createElement('section');sec.className='rm-runway';sec.setAttribute('aria-label','Private jet charter from Fort Lauderdale');sec.appendChild(rw);sec.appendChild(rc);flight.before(sec);}
+    if(flight){flight.setAttribute('data-theme','light');if(sec)sec.setAttribute('data-theme','dark');}
+    /* nav colour follows the section under it (no ScrollTrigger in this mode) */
+    var navR=$('.nav'),themed=$$('main [data-theme], body > section[data-theme], .rm-runway, .foot');
+    var navTheme=function(){var hit=null;themed.forEach(function(s){var r=s.getBoundingClientRect();if(r.top<=40&&r.bottom>40)hit=s;});
+      if(hit&&hit.getAttribute('data-theme'))navR.setAttribute('data-theme',hit.getAttribute('data-theme'));};
+    window.addEventListener('scroll',navTheme,{passive:true});navTheme();
     if(flight&&panel){var s=document.createElement('section');s.className='rm-sky';s.setAttribute('aria-label','About Presidential');s.appendChild(panel);flight.after(s);}
     perks.forEach(function(p,k){$('.perk__head',p).addEventListener('click',function(){activate(k,false);});});
     return;
@@ -197,18 +204,20 @@
   gsap.set(panelEl,{xPercent:-50,yPercent:-50,x:0,y:0,left:'50%',top:'50%'});
 
   /* Camera: the photo is laid out with object-fit:cover. We push in on one lit cabin window
-     (source px in tarmac.webp, 864x1152) until it is the size and position of the porthole glass,
+     (source px in tarmac-day.webp / tarmac-day-m.webp) until it is the size and position of the porthole glass,
      while the porthole bezel locks onto it and grows with it. */
-  var IW=864,IH=1152,WIN={x:546,y:611,h:25};
+  /* window anchors measured in the source images (centre + glass height, px) */
+  var SHOT={d:{w:1280,h:720,x:837,y:344,wh:40,px:.5,py:.6},   /* img/tarmac-day.webp   */
+            m:{w:720,h:1280,x:315,y:764,wh:27,px:.6,py:.5}};  /* img/tarmac-day-m.webp */
+  var flightSec=$('.flight'),navEl=$('.nav');
   var cam={z:0};
   function clamp(x){return Math.max(0,Math.min(1,x));}
   function seg(z,a,b){return clamp((z-a)/(b-a));}
   function sm(t){return t*t*(3-2*t);}
   function renderCam(){
-    var vw=window.innerWidth,vh=window.innerHeight,mob=isMobile(),z=cam.z;
-    var px=mob?.6:.5,py=mob?.5:.62;
-    var b=Math.max(vw/IW,vh/IH),ox=(vw-IW*b)*px,oy=(vh-IH*b)*py;
-    var p0x=ox+b*WIN.x,p0y=oy+b*WIN.y,h0=b*WIN.h;
+    var vw=window.innerWidth,vh=window.innerHeight,mob=isMobile(),z=cam.z,S=mob?SHOT.m:SHOT.d;
+    var b=Math.max(vw/S.w,vh/S.h),ox=(vw-S.w*b)*S.px,oy=(vh-S.h*b)*S.py;
+    var p0x=ox+b*S.x,p0y=oy+b*S.y,h0=b*S.wh;
     var bz=porth[0],gw=bz.offsetWidth*.812,gh=bz.offsetHeight*.868;
     var cx=bz.offsetLeft+bz.offsetWidth/2,cy=bz.offsetTop+bz.offsetHeight/2;
     var kF=gh/h0,k=Math.pow(kF,z),m=sm(z);
@@ -224,6 +233,10 @@
     rwShade.style.opacity=(1-sm(seg(z,.3,.7))).toFixed(3);
     rwPhoto.style.opacity=(1-sm(seg(z,.62,.92))).toFixed(3);
     rwLayer.style.visibility=z>=.999?'hidden':'visible';
+    /* white nav over the sunny runway photo, navy once we're inside the light cabin */
+    var th=z<.55?'dark':'light';
+    if(flightSec.getAttribute('data-theme')!==th){flightSec.setAttribute('data-theme',th);
+      if(window.scrollY<flightSec.offsetTop+flightSec.offsetHeight-40)navEl.setAttribute('data-theme',th);}
   }
   gsap.set('.hero-foot',{autoAlpha:0});
   renderCam();
