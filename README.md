@@ -16,3 +16,10 @@ This is a static preview. Open `index.html` through any local server, for exampl
 ## Claims to confirm with the client
 - "Private FXE terminal" (perk 02, from Rex's copy) needs confirming.
 - The destination cities are used as examples, not as a list of routes.
+
+## v3 (lead capture + runway intro)
+- Opening: jet on the runway (img/tarmac.webp). As you scroll, the camera pushes into a lit cabin window, which becomes the porthole hero. This all runs inside the existing sticky `.flight` stage, scrubbed by the same GSAP timeline. Reduced motion gets a static runway screen instead.
+- Always-visible primary CTA, "Schedule Your Flight": in the header, the intro route bar, and the mobile sticky bar. All of them open the quote modal.
+- Quote forms (the #quote section, the modal, and the footer) validate on the client only. **No backend yet:** see the `<!-- TODO: connect form endpoint (FormSubmit/CRM) after client approval -->` comments.
+- The trust row ("Response within 15 minutes", "24/7 charter desk") is SAMPLE copy until the client confirms it.
+- Backup of the pre-v3 site: ../v2-backup-pre-v3/
