@@ -56,10 +56,121 @@
     }
   }
 
+
+  /* =====================================================
+     v3 · lead capture: quote forms, modal, route bar
+     (runs in every motion mode)
+     ===================================================== */
+  var today=new Date();today.setMinutes(today.getMinutes()-today.getTimezoneOffset());
+  var todayStr=today.toISOString().slice(0,10);
+  $$('input[type="date"]').forEach(function(d){d.min=todayStr;});
+
+  function setErr(form,name,msg){
+    var el=form.elements[name];if(!el||!el.id)return;
+    var err=document.getElementById(el.id+'-err');
+    if(msg){el.setAttribute('aria-invalid','true');if(err)err.textContent=msg;}
+    else{el.removeAttribute('aria-invalid');if(err)err.textContent='';}
+  }
+  function tripOf(form){var r=form.querySelector('input[name="trip"]:checked');return r?r.value:'one-way';}
+  function syncTrip(form){
+    var t=tripOf(form),ret=$('.fld--ret',form),legs=$('.fld--legs',form);
+    if(ret)ret.hidden=t!=='round-trip';
+    if(legs)legs.hidden=t!=='multi-leg';
+    if(t!=='round-trip')setErr(form,'return','');
+  }
+  function validate(form){
+    var v=function(n){var e=form.elements[n];return e?String(e.value).trim():'';},bad=[];
+    function chk(n,msg){setErr(form,n,msg);if(msg)bad.push(n);}
+    chk('from',v('from').length<2?'Enter a departure city or airport.':'');
+    chk('to',v('to').length<2?'Enter a destination city or airport.':'');
+    var d=v('date');chk('date',!d?'Choose a departure date.':(d<todayStr?'Choose today or a later date.':''));
+    if(tripOf(form)==='round-trip'){var r=v('return');chk('return',!r?'Choose a return date.':(d&&r<d?'Return must be on or after departure.':''));}
+    var p=parseInt(v('passengers'),10);chk('passengers',!(p>=1&&p<=99)?'Enter 1 to 99 passengers.':'');
+    chk('name',v('name').length<2?'Enter your full name.':'');
+    chk('phone',v('phone').replace(/\D/g,'').length<7?'Enter a phone number we can reach you on.':'');
+    chk('email',!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('email'))?'Enter a valid email address.':'');
+    return bad;
+  }
+  $$('form[data-qf]').forEach(function(form){
+    var done=form.nextElementSibling;
+    $$('input[name="trip"]',form).forEach(function(r){r.addEventListener('change',function(){syncTrip(form);});});
+    syncTrip(form);
+    var sw=$('.qf__swap',form);
+    if(sw)sw.addEventListener('click',function(){var a=form.elements.from,b=form.elements.to,t=a.value;a.value=b.value;b.value=t;});
+    $$('[data-pax]',form).forEach(function(b){b.addEventListener('click',function(){
+      var i=form.elements.passengers,n=(parseInt(i.value,10)||0)+parseInt(b.getAttribute('data-pax'),10);
+      i.value=Math.max(1,Math.min(99,n));setErr(form,'passengers','');});});
+    form.addEventListener('input',function(e){if(e.target.getAttribute('aria-invalid')==='true')setErr(form,e.target.name,'');});
+    form.addEventListener('submit',function(e){
+      e.preventDefault(); /* No backend yet: nothing is sent anywhere. */
+      var bad=validate(form);
+      if(bad.length){var f=form.elements[bad[0]];if(f&&f.focus)f.focus();return;}
+      var first=String(form.elements.name.value).trim().split(/\s+/)[0];
+      var nm=$('[data-done-name]',done);if(nm)nm.textContent=first?', '+first:'';
+      form.hidden=true;done.hidden=false;done.focus({preventScroll:true});
+      if(window.ScrollTrigger)ScrollTrigger.refresh();
+    });
+    var again=$('.qf__again',done);
+    if(again)again.addEventListener('click',function(){form.reset();syncTrip(form);done.hidden=true;form.hidden=false;
+      $$('[aria-invalid]',form).forEach(function(x){setErr(form,x.name,'');});form.elements.from.focus();
+      if(window.ScrollTrigger)ScrollTrigger.refresh();});
+  });
+
+  /* modal */
+  var modal=$('#quote-modal'),mForm=modal&&$('form[data-qf]',modal),lastFocus=null;
+  function focusables(){return $$('a[href],button:not([disabled]),input:not([disabled]):not([type="hidden"]),select,textarea,[tabindex]:not([tabindex="-1"])',modal).filter(function(el){return el.offsetParent!==null;});}
+  function openModal(pref){
+    if(!modal)return;
+    lastFocus=document.activeElement;
+    if(mForm&&mForm.hidden){mForm.reset();mForm.hidden=false;mForm.nextElementSibling.hidden=true;}
+    if(pref&&mForm){
+      Object.keys(pref).forEach(function(k){
+        if(k==='trip'){var r=mForm.querySelector('input[name="trip"][value="'+pref.trip+'"]');if(r)r.checked=true;}
+        else if(mForm.elements[k]&&pref[k])mForm.elements[k].value=pref[k];
+      });
+      syncTrip(mForm);
+    }
+    modal.hidden=false;html.classList.add('qm-lock');
+    if(window.__lenis)window.__lenis.stop();
+    requestAnimationFrame(function(){modal.classList.add('is-open');});
+    var target=pref&&mForm?(['from','to','date'].filter(function(k){return !mForm.elements[k].value;})[0]||'name'):'from';
+    setTimeout(function(){var el=mForm&&mForm.elements[target];if(el)el.focus();},60);
+  }
+  function closeModal(){
+    if(!modal||modal.hidden)return;
+    modal.classList.remove('is-open');html.classList.remove('qm-lock');
+    if(window.__lenis)window.__lenis.start();
+    setTimeout(function(){modal.hidden=true;},RM?0:350);
+    if(lastFocus&&lastFocus.focus)lastFocus.focus({preventScroll:true});
+  }
+  window.openQuote=openModal;
+  document.addEventListener('click',function(e){
+    var t=e.target.closest&&e.target.closest('[data-quote]');
+    if(t){e.preventDefault();openModal();return;}
+    if(e.target.closest&&e.target.closest('[data-qm-close]'))closeModal();
+  });
+  document.addEventListener('keydown',function(e){
+    if(!modal||modal.hidden)return;
+    if(e.key==='Escape'){e.preventDefault();closeModal();return;}
+    if(e.key==='Tab'){var f=focusables();if(!f.length)return;var a=f[0],z=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus();}
+      else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus();}}
+  });
+
+  /* route bar on the runway: hand the route to the modal, which collects contact details */
+  var rbar=$('form[data-rbar]');
+  if(rbar)rbar.addEventListener('submit',function(e){
+    e.preventDefault();
+    var g=function(n){return String(rbar.elements[n].value||'').trim();};
+    openModal({trip:g('trip'),from:g('from'),to:g('to'),date:g('date'),passengers:g('passengers')});
+  });
+
   /* reduced motion / no GSAP: static layout and done */
   if(RM||!window.gsap||!window.ScrollTrigger){
     html.classList.add('rm');
     var flight=$('.flight'),panel=$('.panel');
+    var rw=$('.runway'),rc=$('.runway__copy');
+    if(flight&&rw&&rc){var sec=document.createElement('section');sec.className='rm-runway';sec.setAttribute('aria-label','Private jet charter from Fort Lauderdale');sec.appendChild(rw);sec.appendChild(rc);flight.before(sec);}
     if(flight&&panel){var s=document.createElement('section');s.className='rm-sky';s.setAttribute('aria-label','About Presidential');s.appendChild(panel);flight.after(s);}
     perks.forEach(function(p,k){$('.perk__head',p).addEventListener('click',function(){activate(k,false);});});
     return;
@@ -74,33 +185,73 @@
     lenis.on('scroll',ScrollTrigger.update);
     gsap.ticker.add(function(t){lenis.raf(t*1000);});
     gsap.ticker.lagSmoothing(0);
+    window.__lenis=lenis;
   }
   function scrollToY(y){if(lenis)lenis.scrollTo(y,{duration:1.6});else window.scrollTo({top:y,behavior:'smooth'});}
 
-  /* ---------- 1+2 · flight ---------- */
+  /* ---------- 0 · runway intro + 1+2 · flight ---------- */
   var glassEl=$('.glass'),porth=$$('.porthole'),bezel=$('.porthole--bezel'),panelEl=$('.panel');
+  var rwLayer=$('.runway'),rwPhoto=$('.runway__photo'),rwImg=$('.runway__photo img'),rwWall=$('.runway__wall'),rwShade=$('.runway__shade');
   function finalScale(){var r=glassEl.getBoundingClientRect(),s=gsap.getProperty(porth[0],'scale')||1;
     var w=r.width/s,h=r.height/s;return Math.max(window.innerWidth/w,window.innerHeight/h)*1.6;}
   gsap.set(panelEl,{xPercent:-50,yPercent:-50,x:0,y:0,left:'50%',top:'50%'});
-  var ft=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'.flight',start:'top top',end:'bottom bottom',scrub:1,invalidateOnRefresh:true}});
-  ft.to('.glass__shade',{yPercent:-42,duration:.9,ease:'power1.inOut'},0)
-    .to('.hint',{autoAlpha:0,duration:.4},0)
-    .to(porth,{scale:function(){return isMobile()?1.25:1.5;},duration:1.4,ease:'power1.inOut'},.4)
-    .to('.sky__tint',{opacity:0,duration:1.2},.4)
-    .fromTo('.sky__img',{scale:1.25},{scale:1.1,duration:4.6},.4)
-    .to('.glass__brand',{autoAlpha:0,y:-20,duration:.7},.5)
-    .to('.glow',{opacity:0,duration:1.4},.6)
-    .fromTo('.hl .ln>span',{y:0,yPercent:110},{y:0,yPercent:0,duration:1,stagger:.12,ease:'power3.out'},1.4)
-    .to('.hl__small',{opacity:.85,duration:.8},1.9)
-    .addLabel('hold',2.6)
-    .to('.hl--l',{x:function(){return isMobile()?0:-window.innerWidth*.3;},y:function(){return isMobile()?-window.innerHeight*.25:0;},autoAlpha:0,duration:1,ease:'power2.in'},4.4)
-    .to('.hl--r',{x:function(){return isMobile()?0:window.innerWidth*.3;},y:function(){return isMobile()?window.innerHeight*.25:0;},autoAlpha:0,duration:1,ease:'power2.in'},4.4)
-    .to(porth,{scale:finalScale,duration:2,ease:'power2.in'},4.6)
-    .to(bezel,{opacity:0,duration:.4},6.2)
-    .set(porth,{visibility:'hidden'},6.62)
-    .addLabel('statement',6.8)
-    .fromTo(panelEl,{autoAlpha:0,y:function(){return window.innerHeight;}},{autoAlpha:1,y:0,duration:1.3,ease:'power3.out'},6.8)
-    .to('.statement .w',{color:'#0e1b33',duration:.35,stagger:.06},8.2)
+
+  /* Camera: the photo is laid out with object-fit:cover. We push in on one lit cabin window
+     (source px in tarmac.webp, 864x1152) until it is the size and position of the porthole glass,
+     while the porthole bezel locks onto it and grows with it. */
+  var IW=864,IH=1152,WIN={x:546,y:611,h:25};
+  var cam={z:0};
+  function clamp(x){return Math.max(0,Math.min(1,x));}
+  function seg(z,a,b){return clamp((z-a)/(b-a));}
+  function sm(t){return t*t*(3-2*t);}
+  function renderCam(){
+    var vw=window.innerWidth,vh=window.innerHeight,mob=isMobile(),z=cam.z;
+    var px=mob?.6:.5,py=mob?.5:.62;
+    var b=Math.max(vw/IW,vh/IH),ox=(vw-IW*b)*px,oy=(vh-IH*b)*py;
+    var p0x=ox+b*WIN.x,p0y=oy+b*WIN.y,h0=b*WIN.h;
+    var bz=porth[0],gw=bz.offsetWidth*.812,gh=bz.offsetHeight*.868;
+    var cx=bz.offsetLeft+bz.offsetWidth/2,cy=bz.offsetTop+bz.offsetHeight/2;
+    var kF=gh/h0,k=Math.pow(kF,z),m=sm(z);
+    var wx=p0x+(cx-p0x)*m,wy=p0y+(cy-p0y)*m;
+    rwPhoto.style.transform='translate3d('+(wx-k*p0x).toFixed(2)+'px,'+(wy-k*p0y).toFixed(2)+'px,0) scale('+k.toFixed(4)+')';
+    if(!mob)rwImg.style.filter=z>.35?'blur('+(seg(z,.35,.95)*5).toFixed(2)+'px)':'none';
+    var sb=k*h0/gh,bo=sm(seg(z,.42,.72));
+    gsap.set(porth,{x:wx-cx,y:wy-cy,scale:sb});
+    bezel.style.opacity=bo.toFixed(3);
+    var wo=sm(seg(z,.5,.88)),rx=(gw*sb/2).toFixed(1),ry=(gh*sb/2).toFixed(1);
+    var mask='radial-gradient(ellipse '+rx+'px '+ry+'px at '+wx.toFixed(1)+'px '+wy.toFixed(1)+'px, transparent 97%, #000 100%)';
+    rwWall.style.opacity=wo.toFixed(3);rwWall.style.webkitMaskImage=mask;rwWall.style.maskImage=mask;
+    rwShade.style.opacity=(1-sm(seg(z,.3,.7))).toFixed(3);
+    rwPhoto.style.opacity=(1-sm(seg(z,.62,.92))).toFixed(3);
+    rwLayer.style.visibility=z>=.999?'hidden':'visible';
+  }
+  gsap.set('.hero-foot',{autoAlpha:0});
+  renderCam();
+
+  var O=3.2; /* everything from v2 starts after the runway intro */
+  var ft=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'.flight',start:'top top',end:'bottom bottom',scrub:1,invalidateOnRefresh:true,onRefresh:renderCam}});
+  ft.to('.runway__hint',{autoAlpha:0,duration:.3},0)
+    .to('.runway__copy',{autoAlpha:0,y:-40,duration:.6,ease:'power1.in'},.15)
+    .fromTo(cam,{z:0},{z:1,duration:2.6,ease:'power1.inOut',onUpdate:renderCam},.5)
+    .fromTo('.hero-foot',{autoAlpha:0},{autoAlpha:1,duration:.3},O-.3)
+    .to('.glass__shade',{yPercent:-42,duration:.9,ease:'power1.inOut'},O)
+    .to('.hint',{autoAlpha:0,duration:.4},O+.2)
+    .fromTo(porth,{scale:1},{scale:function(){return isMobile()?1.25:1.5;},duration:1.4,ease:'power1.inOut',immediateRender:false},O+.4)
+    .to('.sky__tint',{opacity:0,duration:1.2},O+.4)
+    .fromTo('.sky__img',{scale:1.25},{scale:1.1,duration:4.6},O+.4)
+    .to('.glass__brand',{autoAlpha:0,y:-20,duration:.7},O+.5)
+    .to('.glow',{opacity:0,duration:1.4},O+.6)
+    .fromTo('.hl .ln>span',{y:0,yPercent:110},{y:0,yPercent:0,duration:1,stagger:.12,ease:'power3.out'},O+1.4)
+    .to('.hl__small',{opacity:.85,duration:.8},O+1.9)
+    .addLabel('hold',O+2.6)
+    .to('.hl--l',{x:function(){return isMobile()?0:-window.innerWidth*.3;},y:function(){return isMobile()?-window.innerHeight*.25:0;},autoAlpha:0,duration:1,ease:'power2.in'},O+4.4)
+    .to('.hl--r',{x:function(){return isMobile()?0:window.innerWidth*.3;},y:function(){return isMobile()?window.innerHeight*.25:0;},autoAlpha:0,duration:1,ease:'power2.in'},O+4.4)
+    .to(porth,{scale:finalScale,duration:2,ease:'power2.in'},O+4.6)
+    .to(bezel,{opacity:0,duration:.4},O+6.2)
+    .set(porth,{visibility:'hidden'},O+6.62)
+    .addLabel('statement',O+6.8)
+    .fromTo(panelEl,{autoAlpha:0,y:function(){return window.innerHeight;}},{autoAlpha:1,y:0,duration:1.3,ease:'power3.out'},O+6.8)
+    .to('.statement .w',{color:'#0e1b33',duration:.35,stagger:.06},O+8.2)
     .fromTo('.stat',{autoAlpha:0,y:30},{autoAlpha:1,y:0,duration:.6,stagger:.18,ease:'power2.out'},'>-0.2')
     .to({},{duration:1});
 
@@ -156,7 +307,7 @@
   });
 
   /* ---------- anchors ---------- */
-  $$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){
+  $$('a[href^="#"]').forEach(function(a){if(a.hasAttribute('data-quote'))return;a.addEventListener('click',function(e){
     var id=a.getAttribute('href');if(id.length<2&&id!=='#')return;
     var y=0;
     if(id==='#top')y=0;
